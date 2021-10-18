@@ -68,18 +68,29 @@ extern "C" {
     std::vector<Neighborhood> H(G.number_of_nodes());
 
     std::cerr << "Constructing node neighborhoods..." << std::endl;
+//    for (int i : G.nodes()) {
+//      if (G.degree(i) > k_max) {
+//        r[i] = r_min;
+//        E_r[i] = find_neighborhood_edges(G,i,r[i]);
+//      }
+//      else {
+//        r[i] = r_max;
+//        E_r[i] = find_neighborhood_edges(G,i,r[i]);
+//        while ((count_nodes(E_r[i],i)>k_max) && (r[i]>r_min)) {
+//          r[i] -= 1;
+//          E_r[i] = find_neighborhood_edges(G,i,r[i]);
+//        }
+//      }
+//      H[i].init(E_r[i],i,G);
+//    }
+
     for (int i : G.nodes()) {
-      if (G.degree(i) > k_max) {
-        r[i] = r_min;
-        E_r[i] = find_neighborhood_edges(G,i,r[i]);
-      }
-      else {
-        r[i] = r_max;
-        E_r[i] = find_neighborhood_edges(G,i,r[i]);
-        while ((count_nodes(E_r[i],i)>k_max) && (r[i]>r_min)) {
-          r[i] -= 1;
-          E_r[i] = find_neighborhood_edges(G,i,r[i]);
-        }
+      r[i] = r_min;
+      E_r[i] = find_neighborhood_edges(G,i,r[i]);
+      while ((count_nodes(E_r[i],i)<=k_max) && (r[i]<r_max)) {
+        auto Ni = find_neighborhood_edges(G,i,r[i]+1);
+	if (count_nodes(Ni,i) > k_max) break;
+	else { E_r[i] = Ni; r[i]+=1; };
       }
       H[i].init(E_r[i],i,G);
     }

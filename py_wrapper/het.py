@@ -38,15 +38,19 @@ def sparse_matrix_to_edges(M):
     i = M.nonzero()
     return np.array(i).T, np.array(M[i[0],i[1]],dtype=np.double)[0]
 
+def rho(x, eta, l):
+    z = x+(0+1j)*eta
+    return np.imag(-np.mean(1/(z-l))/np.pi)
+
 
 if __name__=="__main__":
 #    G = nx.watts_strogatz_graph(5000, 4, 0.25)
 #    edges, edge_weights = sparse_matrix_to_edges(nx.laplacian_matrix(G))
-#    X = np.linspace(0,5,101)
-#    out = spectrum(edges, edge_weights, 0.1, X, 3, 10, -1)
+#    X = np.linspace(0,10,151)
+#    out = spectrum(edges, edge_weights, 0.05, X, 3, 10, 0)
     A = np.genfromtxt('a_as.txt')
     edges = A[:,0:2].astype(int) 
     edge_weights = A[:,2]
-    X = np.linspace(-5,5,101)
-    out = spectrum(edges, edge_weights, 0.25, X, 1, 10, -1)
+    X = np.linspace(-5,5,100)
+    out = spectrum(edges, edge_weights, 0.25, X, 1, 20, -1)
 
