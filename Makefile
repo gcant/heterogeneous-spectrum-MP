@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-O3 -fopenmp -march=native -std=c++17 -I include/eigen3  -I include
+CFLAGS=-O3 -fopenmp -march=native -std=c++17 -I include/eigen3  -I include -fno-math-errno
 
 main:
 	$(CC) heterogeneous.cpp -o heterogeneous $(CFLAGS)
