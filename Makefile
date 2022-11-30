@@ -7,6 +7,8 @@ ifeq ($(shell uname -s),Darwin)
 	CPP=g++-12
 endif
 
+all: main py_wrap
+
 main:
 	$(CPP) heterogeneous.cpp -o heterogeneous $(CFLAGS)
 
