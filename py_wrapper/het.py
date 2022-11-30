@@ -43,14 +43,14 @@ def rho(x, eta, l):
     return np.imag(-np.mean(1/(z-l))/np.pi)
 
 
-if __name__=="__main__":
+#if __name__=="__main__":
 #    G = nx.watts_strogatz_graph(5000, 4, 0.25)
 #    edges, edge_weights = sparse_matrix_to_edges(nx.laplacian_matrix(G))
 #    X = np.linspace(0,10,151)
-#    out = spectrum(edges, edge_weights, 0.05, X, 3, 10, 0)
-    A = np.genfromtxt('a_as.txt')
-    edges = A[:,0:2].astype(int) 
-    edge_weights = A[:,2]
-    X = np.linspace(-5,5,100)
-    out = spectrum(edges, edge_weights, 0.25, X, 1, 20, -1)
+#    out = spectrum(edges, edge_weights, 0.1, X, 2, 10, 1)
+#    A = np.genfromtxt('a_as.txt')
+#    edges = A[:,0:2].astype(int) 
+#    edge_weights = A[:,2]
+#    X = np.linspace(-5,5,100)
+#    out = spectrum(edges, edge_weights, 0.25, X, 1, 20, -1)
 
