@@ -5,6 +5,8 @@
 #include <unordered_set>
 #include <tuple>
 
+typedef unsigned long long int ULLINT;
+
 std::vector<std::vector<int>> list_paths(WGraph &G, int i, int j, int r) {
   if (r==1) {
     if (G.has_edge(i,j))
@@ -29,17 +31,29 @@ std::vector<std::vector<int>> list_paths(WGraph &G, int i, int j, int r) {
   return {};
 }
 
-unsigned long long int eid(WGraph &G, int i, int j){
+ULLINT eid(WGraph &G, int i, int j){
+  ULLINT a,b,n;
+  n = G.number_of_nodes();
   if (i<j) {
-    return G.number_of_nodes()*i + j;
+    a = i;
+    b = j;
   }
   else {
-    return G.number_of_nodes()*j + i;
+    a = j;
+    b = i;
   }
+  return (n*a)+b;
+  //if (i<j) {
+  //  return G.number_of_nodes()*i + j;
+  //}
+  //else {
+  //  return G.number_of_nodes()*j + i;
+  //}
 }
 
-std::pair<int,int> eid(WGraph &G, unsigned long long int e){
-  return {e/G.number_of_nodes(), e%G.number_of_nodes()};
+std::pair<int,int> eid(WGraph &G, ULLINT e){
+  ULLINT n = G.number_of_nodes();
+  return {(int)(e/n), (int)(e%n)};
 }
 
 std::vector<std::pair<int,int>> find_neighborhood_edges(WGraph &G, int i, int r){
@@ -122,7 +136,7 @@ std::pair<std::vector<std::pair<int,int>>,int> find_neighborhood_edges_r(WGraph 
 }
 
 std::vector<std::pair<int,int>> intersection( WGraph &G, std::vector<std::pair<int,int>> const &N1, std::vector<std::pair<int,int>> const &N2 ){
-  std::unordered_set<int> edges1;
+  std::unordered_set<ULLINT> edges1;
   std::vector<std::pair<int,int>> edges_intersect;
   for (auto x : N1){
     edges1.insert( eid(G, x.first, x.second) );
@@ -135,7 +149,7 @@ std::vector<std::pair<int,int>> intersection( WGraph &G, std::vector<std::pair<i
 }
 
 std::vector<std::pair<int,int>> difference( WGraph &G, std::vector<std::pair<int,int>> const &N1, std::vector<std::pair<int,int>> const &N2 ){
-  std::unordered_set<int> edges2;
+  std::unordered_set<ULLINT> edges2;
   std::vector<std::pair<int,int>> edges_difference;
   for (auto x : N2){
     edges2.insert( eid(G, x.first, x.second) );
